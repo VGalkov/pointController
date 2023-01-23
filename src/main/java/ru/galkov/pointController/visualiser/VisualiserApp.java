@@ -7,6 +7,8 @@ import org.springframework.context.annotation.AnnotationConfigApplicationContext
 import ru.galkov.pointController.visualiser.frame.Visualiser;
 import ru.galkov.pointController.visualiser.frame.VisualiserPointHolder;
 
+import java.awt.*;
+
 
 @SpringBootApplication
 public class VisualiserApp {
@@ -21,10 +23,11 @@ public class VisualiserApp {
                 .buildPointHolder()
                 .start();
 
-
-        Visualiser visualiser = new Visualiser();
-        visualiser.setContext(context).setPointHolder(pointHolder);
-        new Thread(visualiser).start();
+        if (!GraphicsEnvironment.getLocalGraphicsEnvironment().isHeadlessInstance()) {
+            Visualiser visualiser = new Visualiser();
+            visualiser.setContext(context).setPointHolder(pointHolder);
+            new Thread(visualiser).start();
+        }
 
 
     }
