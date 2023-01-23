@@ -3,6 +3,7 @@ package ru.galkov.pointController.field;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.*;
+import ru.galkov.pointController.field.config.FieldConfigService;
 
 @Configuration
 @ComponentScan("ru.galkov.pointController.field")

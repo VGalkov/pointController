@@ -3,6 +3,7 @@ package ru.galkov.pointController.field;
 import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
+import ru.galkov.pointController.field.config.FieldConfigService;
 
 import java.net.HttpURLConnection;
 import java.net.URL;

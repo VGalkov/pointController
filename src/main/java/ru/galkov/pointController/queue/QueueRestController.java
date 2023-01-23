@@ -7,7 +7,7 @@ import org.springframework.web.bind.annotation.*;
 
 
 @RestController
-public class RestRecordsListener {
+public class QueueRestController {
 
     @Autowired
     RecordsQueue recordsQueue;
@@ -20,7 +20,7 @@ public class RestRecordsListener {
     @GetMapping("/")
     @ResponseBody
     public String emptyAnswer() {
-        return "";
+        return getRes();
     }
 
     // /push{"zzz" : "xxx"} -> {"result":"ok"}
@@ -66,5 +66,7 @@ public class RestRecordsListener {
         return outBoundJSON.toString();
     }
 
-
+    private String getRes() {
+        return this.toString();
+    }
 }

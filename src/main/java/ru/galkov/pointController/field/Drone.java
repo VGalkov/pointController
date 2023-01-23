@@ -3,8 +3,8 @@ package ru.galkov.pointController.field;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.Scope;
-import org.springframework.core.env.Environment;
 import org.springframework.stereotype.Component;
+import ru.galkov.pointController.field.config.FieldConfigService;
 
 import java.util.Map;
 

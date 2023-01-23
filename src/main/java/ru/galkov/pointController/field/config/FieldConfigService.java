@@ -1,4 +1,4 @@
-package ru.galkov.pointController.field;
+package ru.galkov.pointController.field.config;
 
 import java.util.Map;
 

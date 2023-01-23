@@ -1,4 +1,4 @@
-package ru.galkov.pointController.field;
+package ru.galkov.pointController.field.config;
 
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.PropertySource;
