@@ -1,18 +1,13 @@
-package ru.galkov.pointController.userProxy;
+package ru.galkov.pointController.visualiser;
 
-import org.json.JSONException;
-import org.json.JSONObject;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
-import ru.galkov.pointController.queue.Record;
-import ru.galkov.pointController.queue.RecordsQueue;
 
 
 @RestController()
-public class UserProxyRestController {
+public class VisualiserRestController {
 
     private final static String ERROR_RES = "error result, 500";
     private final static String RESULT_KEY = "result";

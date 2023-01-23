@@ -1,9 +1,6 @@
 package ru.galkov.pointController;
 
-import ru.galkov.pointController.field.FieldApp;
-import ru.galkov.pointController.queue.QueueApp;
-import ru.galkov.pointController.server.ServerApp;
-import ru.galkov.pointController.userProxy.UserApp;
+import ru.galkov.pointController.visualiser.VisualiserApp;
 
 public class PointControllerApplication {
 
@@ -16,16 +13,16 @@ public class PointControllerApplication {
 		*/
 
 		// сервер-очередь сообщений между процессами.
-		QueueApp.main(args);
+		//QueueApp.main(args);
 
 		// управляющий стратегиями сервер
-		ServerApp.main(args);
+		//ServerApp.main(args);
 
 		// список "дронов"
-		FieldApp.main(args);
+		//FieldApp.main(args);
 
 		// клиент, отображение
-		UserApp.main(args);
+		VisualiserApp.main(args);
 	}
 
 }
