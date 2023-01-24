@@ -13,9 +13,18 @@ public class VisualiserConfigServiceBean implements VisualiserConfigService {
     @Value("${visualiser.visualiserPointUpdateTimeStep}")
     Integer visualiserPointUpdateTimeStep;
 
+    @Value("${visualiser.mainPopURL}")
+    String mainPopURL;
+
+    @Override
+    public String getServerURL() {
+        return mainPopURL;
+    }
 
     @Override
     public Integer getVisualiserPointUpdateTimeStep() {
         return visualiserPointUpdateTimeStep;
     }
+
+
 }

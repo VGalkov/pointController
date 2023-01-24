@@ -6,7 +6,7 @@ import org.springframework.stereotype.Component;
 import ru.galkov.pointController.field.config.FieldConfigService;
 import ru.galkov.pointController.field.model.FieldPacketImpl;
 import ru.galkov.pointController.field.model.FieldPacketType;
-import ru.galkov.pointController.queue.model.Record;
+import ru.galkov.pointController.queue.model.QueueRecord;
 
 import java.io.IOException;
 import java.net.*;
@@ -32,7 +32,7 @@ public class SenderServiceBean implements SenderService {
             FieldPacketImpl fieldPacket = new FieldPacketImpl();
             fieldPacket.setHeader(String.valueOf(FieldPacketType.DRONE_INFO));
             fieldPacket.setLoad(droneInfo);
-            Record record = new Record(fieldPacket);
+            QueueRecord record = new QueueRecord(fieldPacket);
 
             boolean isSend = send(objectMapper.writeValueAsString(record));
             report(drone.getName(), isSend, position);

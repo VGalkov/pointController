@@ -1,8 +1,8 @@
-package ru.galkov.pointController.queue.model;
+package ru.galkov.pointController.visualiser.model;
 
 import org.springframework.lang.Nullable;
 
-public enum PacketType implements QueueEnumClass<String> {
+public enum VisualiserPacketType implements VisualiserEnumClass<String> {
 
 
     EMPTY("empty"),
@@ -12,7 +12,7 @@ public enum PacketType implements QueueEnumClass<String> {
 
     private final String id;
 
-    PacketType(String value) {
+    VisualiserPacketType(String value) {
         this.id = value;
     }
 
@@ -21,8 +21,8 @@ public enum PacketType implements QueueEnumClass<String> {
     }
 
     @Nullable
-    public PacketType fromId(String id) {
-        for (PacketType at : PacketType.values()) {
+    public VisualiserPacketType fromId(String id) {
+        for (VisualiserPacketType at : VisualiserPacketType.values()) {
             if (at.getId().equals(id)) {
                 return at;
             }

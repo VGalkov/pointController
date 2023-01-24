@@ -4,7 +4,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 
 import java.util.UUID;
 
-public class InfoPacketImpl implements InfoPacket {
+public class QueuePacketImpl implements QueueInfoPacket {
 
     /*
             "packet": {

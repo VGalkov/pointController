@@ -1,8 +1,8 @@
-package ru.galkov.pointController.queue.model;
+package ru.galkov.pointController.visualiser.model;
 
 import org.springframework.lang.Nullable;
 
-public enum QueueType implements QueueEnumClass<String> {
+public enum VisualiserQueueType implements VisualiserEnumClass<String> {
 
     DRONE_IN("droneIn"),
     SERVER_DRONE_OUT("serverDroneOut"),
@@ -10,7 +10,7 @@ public enum QueueType implements QueueEnumClass<String> {
 
     private final String id;
 
-    QueueType(String value) {
+    VisualiserQueueType(String value) {
         this.id = value;
     }
 
@@ -19,8 +19,8 @@ public enum QueueType implements QueueEnumClass<String> {
     }
 
     @Nullable
-    public QueueType fromId(String id) {
-        for (QueueType at : QueueType.values()) {
+    public VisualiserQueueType fromId(String id) {
+        for (VisualiserQueueType at : VisualiserQueueType.values()) {
             if (at.getId().equals(id)) {
                 return at;
             }

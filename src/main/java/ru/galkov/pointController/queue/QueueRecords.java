@@ -2,21 +2,21 @@ package ru.galkov.pointController.queue;
 
 import org.springframework.stereotype.Component;
 import ru.galkov.pointController.queue.model.QueueType;
-import ru.galkov.pointController.queue.model.Record;
+import ru.galkov.pointController.queue.model.QueueRecord;
 
 import java.util.LinkedList;
 import java.util.NoSuchElementException;
 import java.util.logging.Logger;
 
 @Component("RecordsQueue")
-public class RecordsQueue {
+public class QueueRecords {
 
-    private static volatile LinkedList<Record> droneInList = new LinkedList<>();
-    private static volatile LinkedList<Record> serverDroneOutList = new LinkedList<>();
-    private static volatile LinkedList<Record> serverVOutList = new LinkedList<>();
+    private static volatile LinkedList<QueueRecord> droneInList = new LinkedList<>();
+    private static volatile LinkedList<QueueRecord> serverDroneOutList = new LinkedList<>();
+    private static volatile LinkedList<QueueRecord> serverVOutList = new LinkedList<>();
     Logger queueLogger = Logger.getLogger("RecordsQueue.class");
 
-    public synchronized void putRecord(Record record) {
+    public synchronized void putRecord(QueueRecord record) {
         switch (record.getQueueType()) {
             case DRONE_IN ->
                     droneInList.addLast(record);
@@ -31,8 +31,8 @@ public class RecordsQueue {
     }
 
 
-    public synchronized Record getRecord(Record ask) {
-        Record record = null;
+    public synchronized QueueRecord getRecord(QueueRecord ask) {
+        QueueRecord record = null;
         try {
             switch (ask.getQueueType()) {
                 case DRONE_IN ->
@@ -42,7 +42,7 @@ public class RecordsQueue {
                 case SERVER_V_OUT ->
                         record = serverVOutList.getFirst();
                 default ->
-                        record = new Record();
+                        record = new QueueRecord();
             }
 
         } catch (NoSuchElementException e) {

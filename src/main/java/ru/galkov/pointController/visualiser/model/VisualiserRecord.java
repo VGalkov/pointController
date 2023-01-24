@@ -1,16 +1,14 @@
-package ru.galkov.pointController.queue.model;
+package ru.galkov.pointController.visualiser.model;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import org.json.JSONObject;
-import ru.galkov.pointController.field.model.FieldPacket;
-import ru.galkov.pointController.field.model.FieldPacketImpl;
 
 import java.util.Date;
 import java.util.UUID;
 
-public class Record {
+public class VisualiserRecord {
     /*
-    *     {
+         {
             "id":"";
             "timestamp": ..
             "queue": droneIn, serverVOut, serverDOut
@@ -20,7 +18,7 @@ public class Record {
                "load" ...
             }
         }
-    * */
+     */
     @JsonProperty("id")
     private UUID id;
 
@@ -28,23 +26,22 @@ public class Record {
     private Date timestamp;
 
     @JsonProperty("queue")
-    private QueueType queueType;
-    private FieldPacket fieldPacket;
+    private VisualiserQueueType queueType;
+    private VisualiserPacketImpl fieldPacket;
 
-    public Record(FieldPacket fieldPacket) {
+    public VisualiserRecord(JSONObject inBoundJSON) {
         this.id = UUID.randomUUID(); // привести к уникальному в базе.
-        this.setInfoPacket(fieldPacket);
+        this.queueType = VisualiserQueueType.SERVER_V_OUT;
         this.timestamp = new Date();
     }
 
-    public Record() {
+    public VisualiserRecord() {
         this.id = UUID.randomUUID(); // привести к уникальному в базе.
-        FieldPacket packet = new FieldPacketImpl();
+        VisualiserPacket packet = new VisualiserPacketImpl();
+        this.queueType = VisualiserQueueType.SERVER_V_OUT;
+        this.timestamp = new Date();
         this.setInfoPacket(packet);
-        this.timestamp = new Date();
     }
-
-
 
     public UUID getId() {
         return id;
@@ -54,12 +51,12 @@ public class Record {
         this.id = id;
     }
 
-    public FieldPacket getInfoPacket() {
+    public VisualiserPacket getInfoPacket() {
         return fieldPacket;
     }
 
-    public void setInfoPacket(FieldPacket infoPacket) {
-        this.fieldPacket = infoPacket;
+    public void setInfoPacket(VisualiserPacket infoPacket) {
+        this.fieldPacket = (VisualiserPacketImpl) infoPacket;
     }
 
     public Date getTimestamp() {
@@ -70,11 +67,11 @@ public class Record {
         this.timestamp = timestamp;
     }
 
-    public QueueType getQueueType() {
+    public VisualiserQueueType getQueueType() {
         return queueType;
     }
 
-    public void setQueueType(QueueType queueType) {
+    public void setQueueType(VisualiserQueueType queueType) {
         this.queueType = queueType;
     }
 }
