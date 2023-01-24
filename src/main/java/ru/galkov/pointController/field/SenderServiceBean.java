@@ -1,13 +1,15 @@
 package ru.galkov.pointController.field;
 
-import org.json.JSONObject;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import ru.galkov.pointController.field.config.FieldConfigService;
+import ru.galkov.pointController.field.model.FieldPacketImpl;
+import ru.galkov.pointController.field.model.FieldPacketType;
+import ru.galkov.pointController.queue.model.Record;
 
-import java.net.HttpURLConnection;
-import java.net.URL;
-import java.net.URLEncoder;
+import java.io.IOException;
+import java.net.*;
 import java.nio.charset.StandardCharsets;
 import java.util.logging.Logger;
 
@@ -15,39 +17,55 @@ import static java.lang.Math.random;
 
 @Component("SenderService")
 public class SenderServiceBean implements SenderService {
-    Logger fieldLogger = Logger.getLogger("SenderServiceBean.class");
-
+    Logger fieldLogger = Logger.getLogger("SenderServiceBean.class");;
     @Autowired
-    FieldConfigService getServerURL;
+    FieldConfigService fieldConfigService;
 
     @Override
-    public void reportQueue(String name, Double[] position) {
+    public void reportQueue(Drone drone, Double[] position) {
+        ObjectMapper objectMapper = new ObjectMapper(); //может instance
+
         try {
-            JSONObject jsonObject = new JSONObject();
-            jsonObject.put("x", position[0].toString());
-            jsonObject.put("y", position[1].toString());
-            jsonObject.put("z", position[2].toString());
 
-            URL url = new URL(getServerURL.getServerURL() + URLEncoder.encode(jsonObject.toString(), StandardCharsets.UTF_8));
-            HttpURLConnection connection = (HttpURLConnection) url.openConnection();
-            connection.setRequestMethod("GET");
-            connection.setUseCaches(false);
+            String droneInfo = objectMapper.writeValueAsString(drone);
 
-            report(name, connection.getResponseCode(), position);
+            FieldPacketImpl fieldPacket = new FieldPacketImpl();
+            fieldPacket.setHeader(String.valueOf(FieldPacketType.DRONE_INFO));
+            fieldPacket.setLoad(droneInfo);
+            Record record = new Record(fieldPacket);
+
+            boolean isSend = send(objectMapper.writeValueAsString(record));
+            report(drone.getName(), isSend, position);
         } catch (Exception e) {
             fieldLogger.info(e.toString());
         }
     }
 
+
     @Override
-    public void report(String name, int code, Double[] position) {
+    public void report(String name, boolean isSend, Double[] position) {
         String sb = name +
                 " нахожусь тут - " +
                 "X = " + position[0] +
                 "Y = " + position[1] +
                 "Z = " + position[2] +
                 " несу>>" + random() * 10 +
-                " ответ сервера - " + code;
+                " ответ сервера - " + isSend;
         fieldLogger.info(sb);
+    }
+
+    @Override
+    public boolean send(String line) {
+        boolean isSend = false;
+        try {
+            URL url = new URL(fieldConfigService.getServerURL() + URLEncoder.encode(line, StandardCharsets.UTF_8));
+            HttpURLConnection connection = (HttpURLConnection) url.openConnection();
+            connection.setRequestMethod("GET");
+            connection.setUseCaches(false);
+            isSend = (connection.getResponseCode() == 200);
+        } catch (IOException e) {
+            fieldLogger.info(e.toString());
+        }
+        return isSend;
     }
 }

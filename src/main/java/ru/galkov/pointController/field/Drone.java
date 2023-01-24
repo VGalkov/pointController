@@ -1,5 +1,6 @@
 package ru.galkov.pointController.field;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.Scope;
@@ -17,6 +18,7 @@ public class Drone extends Thread implements Mobilized, Comparable<Drone> {
     FieldConfigService fieldConfigService;
     private ApplicationContext fieldContext;
     private SenderService senderService;
+    @JsonProperty("coordinates")
     private final Double[] coordinates = {0D, 0D, 0D};
 
     private final int timeout;
@@ -42,7 +44,7 @@ public class Drone extends Thread implements Mobilized, Comparable<Drone> {
             } catch (InterruptedException ignored) {
             }
             move();
-            senderService.reportQueue(this.getName(), this.coordinates);
+            senderService.reportQueue(this, this.coordinates);
         }
     }
 

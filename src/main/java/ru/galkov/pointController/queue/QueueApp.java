@@ -11,6 +11,7 @@ public class QueueApp {
 
         // сервер-очередь сообщений между процессами.
         SpringApplication.run(QueueApp.class, args);
+
     }
 
 }
