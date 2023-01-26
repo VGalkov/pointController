@@ -20,6 +20,9 @@ public class FieldConfigServiceBean implements FieldConfigService  {
     @Value("${field.movementStep}")
     int movementStep;
 
+    @Value("${field.fastMovementStep}")
+    int fastMovementStep;
+
     @Value("${field.Xmax}")
     Double xMax;
 
@@ -41,6 +44,12 @@ public class FieldConfigServiceBean implements FieldConfigService  {
     public int getMovementStep() {
         return movementStep;
     }
+
+    @Override
+    public int getFastMovementStep() {
+        return fastMovementStep;
+    }
+
 
     @Override
     public Map<String,Double> getFrame() {

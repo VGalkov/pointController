@@ -13,6 +13,7 @@ public interface FieldConfigService {
     String getServerURL();
 
     int getMovementStep();
+    int getFastMovementStep();
 
     Map<String, Double> getFrame();
 }

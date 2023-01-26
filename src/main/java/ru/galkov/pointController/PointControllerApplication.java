@@ -16,13 +16,13 @@ public class PointControllerApplication {
 		*/
 		//порядок запуска пока имеет значение из-за GraphicsEnvironment.getLocalGraphicsEnvironment().isHeadlessInstance
 		// клиент, отображение
-		VisualiserApp.main(args);
+	//	VisualiserApp.main(args);
 
 		// сервер-очередь сообщений между процессами.
 		QueueApp.main(args);
 
 		// управляющий стратегиями сервер
-		ServerApp.main(args);
+	//	ServerApp.main(args);
 
 		// список "дронов"
 		FieldApp.main(args);

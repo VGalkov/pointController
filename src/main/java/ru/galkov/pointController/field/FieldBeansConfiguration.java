@@ -18,6 +18,12 @@ public class FieldBeansConfiguration {
         return new Drone(fieldConfigService.getMovementStep());
     }
 
+    @Bean("fastDrone")
+    @Scope("prototype")
+    Drone getFastDrone() {
+        return new Drone(fieldConfigService.getFastMovementStep());
+    }
+
     @Bean("droneHolder")
     @Scope("singleton")
     DroneHolder getDroneHolder() {

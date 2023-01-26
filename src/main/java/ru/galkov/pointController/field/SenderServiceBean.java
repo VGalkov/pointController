@@ -15,7 +15,6 @@ import java.util.logging.Logger;
 
 import static java.lang.Math.random;
 
-@Component("SenderService")
 public class SenderServiceBean implements SenderService {
     Logger fieldLogger = Logger.getLogger("SenderServiceBean.class");;
     @Autowired

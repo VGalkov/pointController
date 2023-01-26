@@ -1,13 +1,14 @@
 package ru.galkov.pointController.field;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationContext;
 
 import java.util.*;
 
 public class DroneHolder {
-
+    @Autowired
+    ApplicationContext applicationContext;
     private int droneNumber;
-    private ApplicationContext context;
     private Set<Drone> drones;
 
     public int getDroneNumber() {
@@ -19,17 +20,14 @@ public class DroneHolder {
         return this;
     }
 
-    public DroneHolder setContext(ApplicationContext context) {
-        this.context = context;
-        return this;
-    }
-
     public DroneHolder buildDrones() {
-        if (droneNumber > 0 && context != null) {
+        if (droneNumber > 0 && applicationContext != null) {
             drones = new TreeSet<>();
             for (int i = 0; i < droneNumber; i++) {
-                Drone drone = context.getBean("mainDrone", Drone.class);
-                drone.assembleDrone(context);
+                String qualifer = "mainDrone";
+                qualifer = (i%2 == 0) ? "mainDrone" : "fastDrone";
+                Drone drone = applicationContext.getBean(qualifer, Drone.class);
+                drone.assembleDrone(applicationContext);
                 drones.add(drone);
             }
         }

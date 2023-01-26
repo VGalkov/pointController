@@ -3,37 +3,27 @@ package ru.galkov.pointController.field;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationContext;
-import org.springframework.context.annotation.Scope;
-import org.springframework.stereotype.Component;
 import ru.galkov.pointController.field.config.FieldConfigService;
 
 import java.util.Map;
 
 import static java.lang.Math.random;
-@Component("mainDrone")
-@Scope("prototype")
 public class Drone extends Thread implements Mobilized, Comparable<Drone> {
 
     @Autowired
-    FieldConfigService fieldConfigService;
-    private ApplicationContext fieldContext;
-    private SenderService senderService;
+    protected FieldConfigService fieldConfigService;
+    @Autowired
+    protected ApplicationContext fieldContext;
+    protected SenderService senderService;
     @JsonProperty("coordinates")
-    private final Double[] coordinates = {0D, 0D, 0D};
+    protected final Double[] coordinates = {0D, 0D, 0D};
 
-    private final int timeout;
+    protected final int timeout;
 
     Drone(int timeout) {
         super();
         this.timeout = timeout;
         this.setName("Дрон № " + this.toString() + this.hashCode());
-    }
-
-    Drone(ApplicationContext fieldContext, int timeout) {
-        super();
-        this.timeout = timeout;
-        this.setName("Дрон № " + this.toString() + this.hashCode());
-
     }
 
     @Override
@@ -51,7 +41,7 @@ public class Drone extends Thread implements Mobilized, Comparable<Drone> {
     // =============================
 
     public void assembleDrone(ApplicationContext fieldContext) {
-        this.fieldContext = fieldContext;
+     //   this.fieldContext = fieldContext;
         this.senderService = fieldContext.getBean("SenderService", SenderService.class);
     }
 

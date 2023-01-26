@@ -15,7 +15,6 @@ public class FieldApp {
         ApplicationContext context = new AnnotationConfigApplicationContext(FieldBeansConfiguration.class);
         DroneHolder droneHolder = context.getBean("droneHolder", DroneHolder.class);
         droneHolder
-                .setContext(context)
                 .setDroneNumber(4)
                 .buildDrones()
                 .realiseDrones();
